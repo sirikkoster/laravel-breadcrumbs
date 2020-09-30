@@ -1,18 +1,18 @@
 <?php namespace SirikKoster\Breadcrumbs;
 
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Traits\Macroable;
 use SirikKoster\Breadcrumbs\Exceptions\DuplicateBreadcrumbException;
 use SirikKoster\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use SirikKoster\Breadcrumbs\Exceptions\UnnamedRouteException;
 use SirikKoster\Breadcrumbs\Exceptions\ViewNotSetException;
+use stdClass;
 
 /**
  * Class BreadcrumbsManager
- *
  * The main Breadcrumbs singleton class, responsible for registering, generating and rendering breadcrumbs.
  *
  * @author  Sirik Koster <sirik@sirikonline.com>
@@ -230,12 +230,11 @@ class BreadcrumbsManager
      * @param  string|null  $name  The name of the current page.
      * @param  mixed  ...$params  The parameters to pass to the closure for the current page.
      *
-     * @return \Illuminate\Support\HtmlString The generated HTML.
-     * @throws \SirikKoster\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
-     * @throws \SirikKoster\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route doesn't have an associated name.
-     * @throws \SirikKoster\Breadcrumbs\Exceptions\ViewNotSetException if no view has been set.
+     * @return \Illuminate\Contracts\View\View
+     * @throws \SirikKoster\Breadcrumbs\Exceptions\InvalidBreadcrumbException
+     * @throws \SirikKoster\Breadcrumbs\Exceptions\UnnamedRouteException
      */
-    public function view(string $view, string $name = null, ...$params): HtmlString
+    public function view(string $view, string $name = null, ...$params): View
     {
         $breadcrumbs = $this->generate(
             $name,
@@ -243,15 +242,10 @@ class BreadcrumbsManager
             $params
         );
 
-        // TODO: After dropping support for Laravel 5.8 and below, change this to return the view directly
-        // https://github.com/laravel/framework/pull/29600
-        $html = $this->viewFactory->make(
+        return $this->viewFactory->make(
             $view,
             compact('breadcrumbs')
-        )
-            ->render();
-
-        return new HtmlString($html);
+        );
     }
 
     /**
@@ -260,12 +254,12 @@ class BreadcrumbsManager
      * @param  string|null  $name  The name of the current page.
      * @param  mixed  ...$params  The parameters to pass to the closure for the current page.
      *
-     * @return \Illuminate\Support\HtmlString The generated HTML.
+     * @return \Illuminate\Contracts\View\View The generated HTML.
      * @throws \SirikKoster\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      * @throws \SirikKoster\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route doesn't have an associated name.
      * @throws \SirikKoster\Breadcrumbs\Exceptions\ViewNotSetException if no view has been set.
      */
-    public function render(string $name = null, ...$params): HtmlString
+    public function render(string $name = null, ...$params): View
     {
         $view = config('breadcrumbs.view');
 
@@ -290,7 +284,7 @@ class BreadcrumbsManager
      * @throws \SirikKoster\Breadcrumbs\Exceptions\UnnamedRouteException if the current route doesn't have an associated name.
      * @throws \SirikKoster\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
      */
-    public function current(): ?\stdClass
+    public function current(): ?stdClass
     {
         return $this->generate()
             ->where(
@@ -313,7 +307,7 @@ class BreadcrumbsManager
      * @return array A two-element array consisting of the route name (string) and any parameters (array).
      * @throws \SirikKoster\Breadcrumbs\Exceptions\UnnamedRouteException if the current route doesn't have an associated name.
      */
-    protected function getCurrentRoute()
+    protected function getCurrentRoute(): ?array
     {
         // Manually set route
         if ($this->route)
