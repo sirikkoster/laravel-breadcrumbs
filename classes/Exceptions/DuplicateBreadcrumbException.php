@@ -1,8 +1,8 @@
 <?php
 
-namespace DaveJamesMiller\Breadcrumbs\Exceptions;
+namespace SirikKoster\Breadcrumbs\Exceptions;
 
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsException;
+use SirikKoster\Breadcrumbs\BreadcrumbsException;
 use Facade\IgnitionContracts\Solution;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 /**
  * Exception that is thrown if the user attempts to register two breadcrumbs with the same name.
  *
- * @see \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager::register()
+ * @see \SirikKoster\Breadcrumbs\BreadcrumbsManager::register()
  */
 class DuplicateBreadcrumbException extends BreadcrumbsException implements ProvidesSolution
 {

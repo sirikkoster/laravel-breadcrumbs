@@ -2,8 +2,8 @@
 
 namespace BreadcrumbsTests;
 
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsManager;
-use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
+use SirikKoster\Breadcrumbs\BreadcrumbsManager;
+use SirikKoster\Breadcrumbs\Facades\Breadcrumbs;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use ReflectionClass;

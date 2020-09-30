@@ -1,8 +1,8 @@
 <?php
 
-namespace DaveJamesMiller\Breadcrumbs\Exceptions;
+namespace SirikKoster\Breadcrumbs\Exceptions;
 
-use DaveJamesMiller\Breadcrumbs\BreadcrumbsException;
+use SirikKoster\Breadcrumbs\BreadcrumbsException;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
 use Facade\IgnitionContracts\Solution;

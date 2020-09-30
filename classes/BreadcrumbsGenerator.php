@@ -1,15 +1,17 @@
-<?php
+<?php namespace SirikKoster\Breadcrumbs;
 
-namespace DaveJamesMiller\Breadcrumbs;
-
-use DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
+use SirikKoster\Breadcrumbs\Exceptions\InvalidBreadcrumbException;
 use Illuminate\Support\Collection;
 
 /**
- * Generate a set of breadcrumbs for a page.
+ * Class BreadcrumbsGenerator
  *
- * This is passed as the first parameter to all breadcrumb-generating closures. In the documentation it is named
- * `$breadcrumbs`.
+ * Generate a set of breadcrumbs for a page.
+ * This is passed as the first parameter to all breadcrumb-generating closures.
+ * In the documentation it is named `$breadcrumbs`.
+ *
+ * @author  Sirik Koster <sirik@sirikonline.com>
+ * @package SirikKoster\Breadcrumbs
  */
 class BreadcrumbsGenerator
 {

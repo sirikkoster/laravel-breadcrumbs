@@ -1,6 +1,4 @@
-<?php
-
-namespace DaveJamesMiller\Breadcrumbs;
+<?php namespace SirikKoster\Breadcrumbs;
 
 // Not available until Laravel 5.8
 //use Illuminate\Contracts\Support\DeferrableProvider;
@@ -11,7 +9,11 @@ use Illuminate\Support\ServiceProvider;
  */
 class BreadcrumbsServiceProvider extends ServiceProvider //implements DeferrableProvider
 {
-    public function isDeferred()
+
+    /**
+     * @return bool
+     */
+    public function isDeferred() : bool
     {
         // Remove this and uncomment DeferrableProvider after dropping support
         // for Laravel 5.7 and below
@@ -49,6 +51,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider //implements Deferrable
      * Bootstrap the application events.
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function boot(): void
     {
@@ -66,11 +69,11 @@ class BreadcrumbsServiceProvider extends ServiceProvider //implements Deferrable
 
     /**
      * Load the routes/breadcrumbs.php file (if it exists) which registers available breadcrumbs.
-     *
      * This method can be overridden in a child class. It is called by the boot() method, which Laravel calls
      * automatically when bootstrapping the application.
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function registerBreadcrumbs(): void
     {
